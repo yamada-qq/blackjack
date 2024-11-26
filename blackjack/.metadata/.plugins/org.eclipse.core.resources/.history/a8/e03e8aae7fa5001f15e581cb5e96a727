@@ -1,0 +1,13 @@
+package com.model;
+
+public class HandCalculator extends Trump{
+	private Trump[] dealer;
+	private Trump[] player;
+	private int dealerScore;
+	private int playerScore;
+
+	//コンストラクタは不要？
+	HandCalculator(){}
+
+
+}

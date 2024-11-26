@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.model.Trump" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <h1>表示テスト</h1>
+    <%
+    Trump trumpGame = new Trump();
+    List<Trump> deck = Trump.nDeckGame();
+    List<Trump> dealer = Trump.nDeckGame();
+    List<Trump> player = Trump.nDeckGame();
+
+    out.println("リストの残り枚数: " + deck.size() + "<br>");
+    for(int i = 0; i < 2; i++){
+        dealer.add(Trump.deal(deck));
+        player.add(Trump.deal(deck));
+    }
+    for(Trump s : dealer){
+    	out.println("ディーラーの手札"+s);
+    }
+    for(Trump s : player){
+    	out.println("プレイヤーの手札"+s);
+    }
+    out.println("リストの残り枚数: " + deck.size());
+
+
+    %>
+</body>
+</html>

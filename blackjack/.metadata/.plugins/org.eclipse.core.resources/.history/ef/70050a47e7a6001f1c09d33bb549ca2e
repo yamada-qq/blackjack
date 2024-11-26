@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="jp.co.Blackjack.management.*"%>
+
+<%
+GameManagement gameManagement = (GameManagement) session.getAttribute("gamemanagement");
+if (gameManagement == null) {
+    response.sendRedirect("GameStart");
+    return;
+}
+// デバッグ用（本番環境では削除またはコメントアウトすることをお勧めします）
+out.println("Debug: " + gameManagement);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>画面遷移成功</h1>
+</body>
+</html>

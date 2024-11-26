@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.table {
+    width: 100%; /* テーブル全体の幅を指定 */
+    height: auto; /* テーブル全体の高さを自動調整 */
+    border-collapse: collapse; /* セルの境界線を1本にする */
+}
+
+.table th, .table td {
+    border: 1px solid black; /* セルの外枠を黒に設定 */
+    padding: 8px; /* セル内の余白を設定 */
+    text-align: left; /* テキストを左揃え */
+    height: 50px;
+    width: 20px;
+
+}
+

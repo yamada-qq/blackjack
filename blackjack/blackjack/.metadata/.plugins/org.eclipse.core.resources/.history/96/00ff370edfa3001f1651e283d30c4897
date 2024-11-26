@@ -1,0 +1,30 @@
+package com.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Trump {
+	private int number;
+	private String suit;
+
+	private final String HEARTS = "hearts";
+	private final String DIAMONDS = "diamonds";
+	private final String CLUBS = "clubs";
+	private final String SPADES = "spades";
+
+	private String[] suits = { HEARTS, DIAMONDS, CLUBS, SPADES };
+
+	public Trump(int number,String suit) {
+		this.number = number;
+		this.suit = suit;
+	}
+
+	public List<Trump> Deck() {
+		List<Trump> deck = new ArrayList<>();
+		for (String suit : suits) {
+			for (int i = 1; i <= 13; i++) {
+
+			}
+		}
+	}
+}

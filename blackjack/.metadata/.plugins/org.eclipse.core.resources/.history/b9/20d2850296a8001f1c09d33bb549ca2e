@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="jp.co.Blackjack.management.*"%>
+
+<%
+GameManagement gameManagement = (GameManagement) session.getAttribute("gamemanagement");
+CardManagement cardManagement = (CardManagement) session.getAttribute("cardManagement");
+
+if (gameManagement == null || cardManagement == null) {
+	response.sendRedirect("GameStart");
+	return;
+}
+
+// デバッグ用（本番環境では削除またはコメントアウトすることをお勧めします）
+out.println("Debug GameManagement: " + gameManagement);
+out.println("Debug CardManagement: <br>" + cardManagement);
+
+String resultMessage = "";
+int resultNumber = cardManagement.determineWinner(cardManagement);
+gameManagement.processGameResult(resultNumber);
+if (resultNumber == 1) {
+	resultMessage = "勝ち";
+} else if (resultNumber == -1) {
+	resultMessage = "負け";
+} else {
+	resultMessage = "引き分け";
+}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1><%=resultMessage%></h1>
+	<%if(gameManagement.canContinueWithMinBet()){ %>
+
+	<%}else{ %>
+
+	<%} %>
+</body>
+</html>

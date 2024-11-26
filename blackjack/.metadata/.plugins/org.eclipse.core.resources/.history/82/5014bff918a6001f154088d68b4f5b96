@@ -1,0 +1,19 @@
+package com.model;
+
+import java.util.List;
+
+public class Hand extends Trump{
+	private List<Trump> dealerHand;
+	private List<Trump> playerHand;
+	private int dealerScore;
+	private int playerScore;
+
+	//コンストラクタは不要？
+	Hand(){};
+
+	//手札の合計を計算する
+	public int handCalculator()
+	
+	//１の値を１１として扱うか、１として扱うかの処理
+	//それぞれの手札の結果から勝敗をつける
+}

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+table tr td {
+    border: 1px solid black; /* セルの外枠を黒に設定 */
+    text-align: left; /* テキストを左揃え */
+    height: 110px;
+    width: 75px;
+    font-size: 33px;
+}
+
+.frame{
+	height: 300px;
+}

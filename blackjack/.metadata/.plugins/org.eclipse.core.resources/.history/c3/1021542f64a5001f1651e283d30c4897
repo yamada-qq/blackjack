@@ -1,0 +1,11 @@
+package com.management;
+
+public class GameManagement {
+	private int level;
+	private int round;
+	private int ownMedal;
+	private int betMedal;
+
+
+
+}

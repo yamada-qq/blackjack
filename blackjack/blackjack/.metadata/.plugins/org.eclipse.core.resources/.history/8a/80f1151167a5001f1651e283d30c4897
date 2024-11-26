@@ -1,0 +1,30 @@
+package com.management;
+
+public class GameManagement {
+	private int level;
+	private int round;
+	private int ownMedal;
+	private int betMedal;
+
+	private final int LEVEL_EASY_MEDAL = 30;
+	private final int LEVEL_NORMAL_MEDAL = 15;
+	private final int LEVEL_HERD_MEDAL = 5;
+
+	public GameManagement(int level) {
+		this.level = level;
+		this.round = 0;
+		this.ownMedal = 0;
+	}
+
+	// 難易度によって初期メダルを変える
+	public int initialMedal(int level) {
+		if (level == 1) {
+			return LEVEL_EASY_MEDAL;
+		} else if (level == 2) {
+			return LEVEL_NORMAL_MEDAL;
+		} else {
+			return LEVEL_HERD_MEDAL;
+		}
+	}
+
+}

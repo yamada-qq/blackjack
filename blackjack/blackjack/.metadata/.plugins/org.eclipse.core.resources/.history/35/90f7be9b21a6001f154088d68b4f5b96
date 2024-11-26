@@ -1,0 +1,38 @@
+package com.management;
+
+import java.util.List;
+
+import com.model.Trump;
+
+public class CardManagement extends Trump {
+	private List<Trump> useDeck;
+	private List<Trump> dealerHand;
+	private List<Trump> playerHand;
+
+	// コンストラクタは不要？
+	public CardManagement() {
+	}
+
+	public void setDeck(List<Trump> Deck) {
+		this.useDeck = Deck;
+	}
+
+	// 手札の合計を計算する
+	public int calcHand(List<Trump> list) {
+		int score = 0;
+		int countA = 0;
+		for (Trump hands : list) {
+			score = hands.getNumber();
+			if (hands.getNumber() == 1) {
+				score += 10;
+				countA++;
+			}
+		}
+		while (score > 21 && countA > 0) {
+			score -= 10;
+			countA--;
+		}
+		return score;
+	}
+
+}

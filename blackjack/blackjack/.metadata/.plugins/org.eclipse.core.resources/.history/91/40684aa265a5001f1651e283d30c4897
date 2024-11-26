@@ -1,0 +1,22 @@
+package com.management;
+
+public class GameManagement {
+	private int level;
+	private int round;
+	private int ownMedal;
+	private int betMedal;
+
+	//コンストラクタの作成を禁止とする
+	private GameManagement() {}
+
+
+	//難易度によって初期メダルを変える
+	public GameManagement gameManagement(int level) {
+		GameManagement　gameManagement = new GameManagement();
+		if(level == 1) {
+
+		}
+		return gameManagement;
+	}
+
+}

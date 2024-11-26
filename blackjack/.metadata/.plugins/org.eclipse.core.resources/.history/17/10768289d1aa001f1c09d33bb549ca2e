@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="jp.co.Blackjack.management.*"%>
+<%@ page import="jp.co.Blackjack.modl.*"%>
+<%
+GameManagement gameManagement = (GameManagement) session.getAttribute("gamemanagement");
+CardManagement cardManagement = (CardManagement) session.getAttribute("cardManagement");
+
+if (gameManagement == null || cardManagement == null) {
+	response.sendRedirect("GameStart");
+	return;
+}
+
+String resultMessage = "";
+int resultNumber = cardManagement.determineWinner(cardManagement);
+gameManagement.processGameResult(resultNumber);
+if (resultNumber == 1) {
+	resultMessage = "勝ち";
+} else if (resultNumber == -1) {
+	resultMessage = "負け";
+} else {
+	resultMessage = "引き分け";
+}
+
+boolean canNexMinBet = gameManagement.canContinueWithMinBet();
+session.setAttribute("gamemanagement", gameManagement);
+session.setAttribute("cardManagement", cardManagement);
+%>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!--ディーラーの手札  -->
+	ディーラの手札：　合計＝<%=cardManagement.calculateHandValue(cardManagement.getDealerHand()()) %><br><br>
+	<table>
+		<tr>
+			<td><%=cardManagement.getDealerHand().get(0) %></td>
+		</tr>
+	</table>
+
+	<!--プレイヤーの手札  -->
+	プレイヤーの手札：　合計＝<%=cardManagement.calculateHandValue(cardManagement.getPlayerHand()) %><br>
+	<table>
+		<tr>
+		<%for(Trump trumps:cardManagement.getPlayerHand()){ %>
+			<td><%=trumps %></td>
+			<%} %>
+		</tr>
+	</table>
+
+	<h1><%=resultMessage%></h1>
+	<p>次ラウンドの最小Bet：<%=gameManagement.getMinBet() %></p>
+	<%if(canNexMinBet){ %>
+		<form action="BetScreen.jsp" method="post">
+			<input type="submit" value="次のゲームへ">
+		</form>
+	<%}else{ %>
+		<form action="RankingScreen.jsp" method="post">
+			<input type="submit" value="ランキング画面">
+		</form>
+	<%} %>
+</body>
+</html>

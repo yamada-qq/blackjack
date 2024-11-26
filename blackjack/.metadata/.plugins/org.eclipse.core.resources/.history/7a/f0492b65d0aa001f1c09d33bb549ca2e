@@ -1,0 +1,55 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="jp.co.Blackjack.management.*"%>
+<%@ page import="jp.co.Blackjack.modl.*"%>
+
+<%
+GameManagement gameManagement = (GameManagement) session.getAttribute("gamemanagement");
+CardManagement cardManagement = (CardManagement) session.getAttribute("cardManagement");
+
+if (gameManagement == null || cardManagement == null) {
+    response.sendRedirect("GameStart");
+    return;
+}
+
+%>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ブラックジャックゲーム</title>
+</head>
+<body>
+    <h1>ブラックジャックゲーム進行中</h1>
+	<!--ディーラーの手札  -->
+	ディーラの手札<br>
+	<table>
+		<tr>
+			<td><%=cardManagement.getDealerHand().get(0) %></td>
+		</tr>
+	</table>
+
+	<!--プレイヤーの手札  -->
+	<table>
+		<tr>
+		<%for(Trump trumps:cardManagement.getPlayerHand()){ %>
+			<td><%=trumps %></td>
+			<%} %>
+		</tr>
+	</table>
+
+
+    <form action="PlayerAction" method="post">
+        <button type="submit" name="action" value="hit">Hit（もう一枚引く）</button>
+        <button type="submit" name="action" value="stand">Stand（勝負する）</button>
+
+        <%if(cardManagement.getPlayerHand().size() <= 2){ %>
+        	<%if(gameManagement.getBetMedal() < gameManagement.getOwnMedal()){ %>
+            <button type="submit" name="action" value="doubledown">Double Down（BETを2倍にして、カードを1枚だけ引く）</button>
+            <%} %>
+            <button type="submit" name="action" value="surrender">Surrender（BETの半額受け取り次ゲームへ）</button>
+        <%} %>
+    </form>
+
+</body>
+</html>

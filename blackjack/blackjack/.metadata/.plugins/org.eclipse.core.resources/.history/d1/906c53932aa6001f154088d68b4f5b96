@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="GameStartServlet" method="get">
+	やさしい<input type="radio"　id="easy" name="level" value="1">
+	<label for="easy">イージー</label><br>
+	普通<input type="radio" name="level" value="2">
+	難しい<input type="radio" name="level" value="3">
+	<input type="button" value="スタート">
+	</form>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="jp.co.Blackjack.management.CardManagement"%>
+<%@ page import="jp.co.Blackjack.management.Trump"%>
+
+<%
+CardManagement cardManagement = (CardManagement) session.getAttribute("cardManagement");
+List<Trump> playerHand = cardManagement.getPlayerHand();
+%>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>プレイヤーの手札</title>
+    <script>
+        function showLastCard() {
+            const lastCardElement = document.getElementById('last-card');
+            lastCardElement.style.display = 'inline'; // 非表示から表示に変更
+        }
+
+        window.onload = function() {
+            setTimeout(showLastCard, 1000); // 1秒後に実行
+        };
+    </script>
+</head>
+<body>
+    <h1>プレイヤーの手札：合計＝<%= cardManagement.calculateHandValue(playerHand) %></h1>
+    <table border="1">
+        <tr>
+            <% for (int i = 0; i < playerHand.size(); i++) { %>
+                <td><%= playerHand.get(i) %></td>
+            <% } %>
+            <!-- 最後のカードを非表示にしておく -->
+            <% if (!playerHand.isEmpty()) { %>
+                <td id="last-card" style="display: none;"><%= playerHand.get(playerHand.size() - 1) %></td>
+            <% } %>
+        </tr>
+    </table>
+</body>
+</html>
+    <form action="PlayerAction" method="post">
+    <%if(cardManagement.calculateHandValue(cardManagement.getPlayerHand()) < 21){ %>
+        <button type="submit" name="action" value="hit">Hit（もう一枚引く）</button>
+        <%} %>
+        <button type="submit" name="action" value="stand">Stand（勝負する）</button><br>
+
+        <%if(cardManagement.getPlayerHand().size() <= 2){ %>
+        	<%if(gameManagement.getBetMedal() < gameManagement.getOwnMedal()){ %>
+            <button type="submit" name="action" value="doubledown">Double Down（BETを2倍にして、カードを1枚だけ引く）</button><br>
+            <%} %>
+            <button type="submit" name="action" value="surrender">Surrender（BETの半額受け取り次ゲームへ）</button>
+        <%} %>
+    </form>
+
+</body>
+</html>

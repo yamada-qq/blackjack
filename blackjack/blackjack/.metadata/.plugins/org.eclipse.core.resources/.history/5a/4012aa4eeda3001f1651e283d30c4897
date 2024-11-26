@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.model.Trump" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <h1>表示テスト</h1>
+    <%
+    Trump trumpGame = new Trump(0, "");
+    List<Trump> deck = trumpGame.nDeckGame();
+    out.println("リストの残り枚数"+ deck.size());
+    for(int i = 1; i < 14; i++){
+        out.println(trumpGame.deal(deck) + "<br>");
+    }
+    out.println("リストの残り枚数"+ deck.size());
+
+
+    %>
+</body>
+</html>

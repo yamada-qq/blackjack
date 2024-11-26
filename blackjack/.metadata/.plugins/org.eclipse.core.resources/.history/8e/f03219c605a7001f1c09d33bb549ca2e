@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="jp.co.Blackjack.management.*"%>
+
+<%
+GameManagement gameManagement = (GameManagement) session.getAttribute("gamemanagement");
+CardManagement cardManagement = (CardManagement) session.getAttribute("cardManagement");
+
+if (gameManagement == null || cardManagement == null) {
+    response.sendRedirect("GameStart");
+    return;
+}
+
+// デバッグ用（本番環境では削除またはコメントアウトすることをお勧めします）
+out.println("Debug GameManagement: " + gameManagement);
+out.println("Debug CardManagement: <br>" + cardManagement);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ブラックジャックゲーム</title>
+</head>
+<body>
+    <h1>ブラックジャックゲーム進行中</h1>
+    <!-- ゲームの状態を表示するコードをここに追加 -->
+</body>
+</html>

@@ -1,0 +1,51 @@
+package jp.co.Blackjack.reserve;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import jp.co.Blackjack.management.GameManagement;
+
+@WebServlet("/BlackjackPlay")
+public class BlackjackPlayServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+		GameManagement gameManagement = (GameManagement) session.getAttribute("gamemanagement");
+
+		if (gameManagement == null) {
+			response.sendRedirect("GameStart");
+			return;
+		}
+
+		// BETした額を受け取り
+		String str = request.getParameter("betValue");
+		int bet = Integer.parseInt(str);
+
+		// BET額を持ちメダルから引く処理
+		if (gameManagement.BetAfterMedal(bet) == false) {
+
+			// セッションを更新
+			session.setAttribute("gamemanagement", gameManagement);
+			// BlackjackPlayScreen.jsp にフォワード
+			request.getRequestDispatcher("BlackjackPlayScreen.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("menu.jsp");
+
+		}
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// GET リクエストの場合、適切な処理を行う
+		response.sendRedirect("menu.jsp");
+	}
+}

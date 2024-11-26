@@ -1,0 +1,33 @@
+package com.management;
+
+public class GameManagement {
+	private int level;
+	private int round;
+	private int ownMedal;
+	private int betMedal;
+
+	private final int LEVEL_EASY_MEDAL = 30;
+	private final int LEVEL_NORMAL_MEDAL = 15;
+	private final int LEVEL_HERD_MEDAL = 5;
+
+	//コンストラクタの作成を禁止とする
+	private GameManagement() {}
+
+
+	//難易度によって初期メダルを変える
+	public GameManagement initialMedal(int level) {
+		GameManagement gameManagement = new GameManagement();
+		int medal = 0;
+		if(level == 1) {
+			medal = LEVEL_EASY_MEDAL;
+		}else if(level == 2) {
+			medal = LEVEL_NORMAL_MEDAL;
+		}else {
+			medal = LEVEL_HERD_MEDAL;
+		}
+
+
+		return gameManagement;
+	}
+
+}

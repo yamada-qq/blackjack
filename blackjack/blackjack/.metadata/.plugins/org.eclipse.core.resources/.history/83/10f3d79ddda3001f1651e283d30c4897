@@ -1,0 +1,12 @@
+package com.model;
+
+public class Trump {
+	private int number;
+	private String suit;
+
+	final String HEARTS = "hearts";
+	final String DIAMONDS = "diamonds";
+	final String CLUBS = "clubs";
+	final String SPADES = "spades";
+
+}

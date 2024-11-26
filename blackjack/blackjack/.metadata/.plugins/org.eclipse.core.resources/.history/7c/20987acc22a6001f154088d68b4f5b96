@@ -1,0 +1,71 @@
+package com.management;
+
+import java.util.ArrayList;
+import java.util.List;
+import com.model.Trump;
+
+public class CardManagement {
+    private List<Trump> useDeck;
+    private List<Trump> dealerHand;
+    private List<Trump> playerHand;
+
+    public CardManagement() {
+        this.useDeck = Trump.nDeckGame();
+        this.dealerHand = new ArrayList<>();
+        this.playerHand = new ArrayList<>();
+    }
+
+    public void resetDeck() {
+        this.useDeck = Trump.nDeckGame();
+    }
+
+    public Trump dealCard() {
+        return Trump.deal(useDeck);
+    }
+
+    public void dealInitialCards() {
+        for (int i = 0; i < 2; i++) {
+            playerHand.add(dealCard());
+            dealerHand.add(dealCard());
+        }
+    }
+
+    public int calcHand(List<Trump> hand) {
+        int score = 0;
+        int countA = 0;
+        for (Trump card : hand) {
+            int cardValue = card.getNumber();
+            if (cardValue > 10) {
+                cardValue = 10;
+            }
+            if (cardValue == 1) {
+                countA++;
+                score += 11;
+            } else {
+                score += cardValue;
+            }
+        }
+        while (score > 21 && countA > 0) {
+            score -= 10;
+            countA--;
+        }
+        return score;
+    }
+
+    public boolean isDeckLowOnCards() {
+        return useDeck.size() < Trump.MULTI_DECK * 52 * 0.25;
+    }
+
+    public List<Trump> getDealerHand() {
+        return new ArrayList<>(dealerHand);
+    }
+
+    public List<Trump> getPlayerHand() {
+        return new ArrayList<>(playerHand);
+    }
+
+    public void clearHands() {
+        dealerHand.clear();
+        playerHand.clear();
+    }
+}

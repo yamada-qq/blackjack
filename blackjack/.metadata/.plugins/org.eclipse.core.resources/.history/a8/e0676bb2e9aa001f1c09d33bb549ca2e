@@ -1,0 +1,78 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page import="jp.co.Blackjack.management.*"%>
+<%@ page import="jp.co.Blackjack.modl.*"%>
+<%@ page import="java.util.List" %>
+
+<%
+GameManagement gameManagement = (GameManagement) session.getAttribute("gamemanagement");
+CardManagement cardManagement = (CardManagement) session.getAttribute("cardManagement");
+
+if (gameManagement == null || cardManagement == null) {
+    response.sendRedirect("GameStart");
+    return;
+}
+
+List<Trump> playerHand = cardManagement.getPlayerHand();
+%>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="CSS/style.css">
+<title>ブラックジャックゲーム</title>
+<script>
+    function showLastCard() {
+        const lastCardElement = document.getElementById('last-card');
+        if (lastCardElement) {
+            lastCardElement.style.display = 'inline'; // 非表示から表示に変更
+        }
+    }
+
+    window.onload = function() {
+        setTimeout(showLastCard, 1000); // 1秒後に実行
+    };
+</script>
+</head>
+<body>
+    <h1>ラウンド<%=gameManagement.getRound() %> :進行中</h1>
+    <div class="frame">
+	<!--ディーラーの手札  -->
+	ディーラの手札<br>
+	<table>
+		<tr>
+			<td><%=cardManagement.getDealerHand().get(0) %></td>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+
+	<!--プレイヤーの手札  -->
+	プレイヤーの手札：　合計＝<%=cardManagement.calculateHandValue(playerHand) %><br>
+	<table>
+		<tr>
+		<% for (int i = 0; i < playerHand.size(); i++) { %>
+		    <% if (i == playerHand.size() - 1) { %> <!-- 最後のカード -->
+		        <td id="last-card" style="display: none;"><%= playerHand.get(i) %></td>
+		    <% } else { %>
+		        <td><%= playerHand.get(i) %></td>
+		    <% } %>
+		<% } %>
+		</tr>
+	</table>
+	</div>
+
+    <form action="PlayerAction" method="post">
+    <%if(cardManagement.calculateHandValue(playerHand) < 21){ %>
+        <button type="submit" name="action" value="hit">Hit（もう一枚引く）</button>
+    <%} %>
+    <button type="submit" name="action" value="stand">Stand（勝負する）</button><br>
+
+    <%if(playerHand.size() <= 2){ %>
+    	<%if(gameManagement.getBetMedal() < gameManagement.getOwnMedal()){ %>
+        <button type="submit" name="action" value="doubledown">Double Down（BETを2倍にして、カードを1枚だけ引く）</button><br>
+        <%} %>
+        <button type="submit" name="action" value="surrender">Surrender（BETの半額受け取り次ゲームへ）</button>
+    <%} %>
+    </form>
+
+</body>
+</html>
